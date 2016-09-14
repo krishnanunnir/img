@@ -1,12 +1,12 @@
 <?php
-
+session_start();
 class Images extends CI_Controller{
   public function __construct(){
     parent::__construct();
     $this->load->helper(array('form','url'));
   }
   public function index(){
-    session_start();
+
     system("rm -rf uploads");
     system("rm test.jpg");
     system("rm test.png");
@@ -24,10 +24,7 @@ class Images extends CI_Controller{
       fwrite($x,$vno);
       fclose($x);
     }
-    session_unset();
 
-    // destroy the session
-    session_destroy();
     $userData=array('userno'=>$vno);
     $this->load->view('upload_form',$userData);
   }

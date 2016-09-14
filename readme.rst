@@ -3,7 +3,6 @@ What is this Project?
 ###################
 This is a project aimed at constructing a website for compressing jpeg images.
 
-
 *******************
 Tools Used
 *******************
@@ -15,8 +14,6 @@ Maker
 **************************
 
 Krishnanunni
-
-
 
 ***************
 Acknowledgement

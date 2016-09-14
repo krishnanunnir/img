@@ -1,16 +1,35 @@
 <?php
+
 class Images extends CI_Controller{
   public function __construct(){
     parent::__construct();
     $this->load->helper(array('form','url'));
   }
   public function index(){
+    session_start();
     system("rm -rf uploads");
     system("rm test.jpg");
     system("rm test.png");
     system("mkdir uploads");
     chmod("./uploads",0777);
-    $this->load->view('upload_form');
+    if(!isset($__SESSION['user'])){
+      $x=fopen("visit.txt",'r');
+      $vno=fread($x, filesize("visit.txt"));
+      $__SESSION['user']=$vno;
+      fclose($x);
+    }
+    else{
+      $x=fopen("visit.txt",'w');
+      $vno++;
+      fwrite($x,$vno);
+      fclose($x);
+    }
+    session_unset();
+
+    // destroy the session
+    session_destroy();
+    $userData=array('userno'=>$vno);
+    $this->load->view('upload_form',$userData);
   }
   public function do_upload(){
     $config['upload_path']  ='./uploads/';
@@ -27,14 +46,20 @@ class Images extends CI_Controller{
       chmod("./uploads/".$info['file_name'],0777);
       if($info['file_ext']==".jpg" || $info['file_ext']==".jpeg"){
         $image=imagecreatefromjpeg($source);
-        imagejpeg($image,"test.jpg",50);
+        $dst=imagecreatetruecolor(1000,1000);
+        list($width,$height)=getimagesize($source);
+        imagecopyresampled($dst,$image,0,0,0,0,1000,1000,$width,$height);
+        imagejpeg($dst,"test.jpg",50);
         chmod("./test.jpg", 0777);
         $name="test.jpg";
         $size=filesize ("./test.jpg");
       }
       elseif($info['file_ext']==".png"){
         $image=imagecreatefrompng($source);
-        imagepng($image,"test.png",9);
+        $dst=imagecreatetruecolor(500,500);
+        list($width,$height)=getimagesize($source);
+        imagecopyresampled($dst,$image,0,0,0,0,500,500,$width,$height);
+        imagepng($dst,"test.png",1);
         chmod("./test.png", 0777);
         $name="test.png";
         $size=filesize ("./test.png");

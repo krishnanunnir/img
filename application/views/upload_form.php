@@ -7,6 +7,6 @@
     <input type="file" name="userfile"  />
     <input type="submit" value="Upload">
   </form>
-  <?php echo "Hello User#".$userno;?>
+
 </body>
 </html>

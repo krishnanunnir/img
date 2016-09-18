@@ -7,6 +7,6 @@
     <input type="file" name="userfile"  />
     <input type="submit" value="Upload">
   </form>
-
+<p><?php echo anchor('images/show', 'See all uploaded images'); ?></p>
 </body>
 </html>

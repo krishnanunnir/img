@@ -6,11 +6,13 @@ Class Images_model extends CI_Model{
     parent::__construct();
   	$this->load->database();
   }
-  public function show(){
-  	$user="Krishnanunni";
-  	$url="www.google.com";
-    $data=array('user'=>$user,'url'=>$url);
-    $this->db->insert('userimage', $data);
+  public function create($toins){
+
+    $this->db->insert('userimage', $toins);
+  }
+  public function show($toshow){
+    
+
   }
   
 }

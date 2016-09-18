@@ -52,5 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'images';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['show']='show';
 //$route['(:any)']="/images";
 //$route['(:any)/(:any)']="/images";

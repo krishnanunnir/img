@@ -74,8 +74,10 @@ class Images extends CI_Controller{
     
         $image=imagecreatefromjpeg($source);
         list($width,$height)=getimagesize($source);
+        $something=$this->input->post("cropval");
         $dst=imagecreatetruecolor(600,($height/$width)*600);
         list($width,$height)=getimagesize($source);
+        // imagecopy($dst, $image, 0, 0, 150, 150, 600, ($height/$width)*600);
         imagecopyresampled($dst,$image,0,0,0,0,600,($height/$width)*600,$width,$height);
         imagejpeg($dst,"test.jpg",50);
         chmod("./test.jpg", 0777);
@@ -88,8 +90,9 @@ class Images extends CI_Controller{
     
         $image=imagecreatefrompng($source);
         list($width,$height)=getimagesize($source);
+        $something=$this->input->post("cropval");
         $dst=imagecreatetruecolor(600,($height/$width)*600);
-        imagecopyresampled($dst,$image,0,0,0,0,600,($height/$width)*600,$width,$height);
+        imagecopyresampled($dst,$image,0,0,$something,$something,600,($height/$width)*600,$width,$height);
         imagepng($dst,"test.png",1);
         chmod("./test.png", 0777);
         $name="test.png";

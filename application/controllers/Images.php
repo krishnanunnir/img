@@ -75,10 +75,10 @@ class Images extends CI_Controller{
         $image=imagecreatefromjpeg($source);
         list($width,$height)=getimagesize($source);
         $something=$this->input->post("cropval");
-        $dst=imagecreatetruecolor(600,($height/$width)*600);
+        $dst=imagecreatetruecolor(1000,($height/$width)*1000);
         list($width,$height)=getimagesize($source);
         // imagecopy($dst, $image, 0, 0, 150, 150, 600, ($height/$width)*600);
-        imagecopyresampled($dst,$image,0,0,0,0,600,($height/$width)*600,$width,$height);
+        imagecopyresampled($dst,$image,0,0,0,0,1000,($height/$width)*1000,$width,$height);
         imagejpeg($dst,"test.jpg",50);
         chmod("./test.jpg", 0777);
         $name="test.jpg";
@@ -112,6 +112,19 @@ class Images extends CI_Controller{
       $this->load->view('uploaded_form',$data);
 
     }
+  }
+  public function hope(){
+    $xc=$this->input->post("xc");
+    $yc=$this->input->post("yc");
+    $w=$this->input->post("w");
+    $h=$this->input->post("h");
+    $to_crop_array = array('x' =>$xc , 'y' => $yc, 'width' => $w, 'height'=> $h);
+    $base=base_url();
+    $source= $base."test.jpg";
+    $im=imagecreatefromjpeg($source);
+    $thumb_im = imagecrop($im, $to_crop_array);
+    imagejpeg($thumb_im, 'thumb.jpeg', 100);
+    echo "Thank you for using";
   }
 }
 ?>
